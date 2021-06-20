@@ -86,9 +86,4 @@ a:hover {
   border-radius: 200px;
   border: 0;
   background-color: #fca5a5;
-  opacity: 0.8;
-}
-
-.TodoItemDeleteButton:hover {
-  opacity: 1;
 }
