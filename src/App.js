@@ -7,7 +7,7 @@ function App() {
       <div className="HeaderContainer">
         <div className="HeaderContent">
           <img style={{ width: 120 }} src={logo} alt="React-Logo" />
-          <h1>React ToDo</h1>
+          <h1>React Todo</h1>
         </div>
         <div className="SearchInputContainer">
           <input className="InputItem" placeholder="Suche" />
@@ -24,7 +24,7 @@ function App() {
 
           <div className="TodoItemContainer">
             <input type="checkbox"></input>
-            <p className="TodoItemText">ToDo</p>
+            <p className="TodoItemText">Todo</p>
             <button className="TodoItemDeleteButton">&#x2715;</button>
           </div>
         </div>
@@ -34,7 +34,7 @@ function App() {
 
           <div className="TodoItemContainer">
             <input type="checkbox"></input>
-            <p className="TodoItemText">ToDo</p>
+            <p className="TodoItemText">Todo</p>
             <button className="TodoItemDeleteButton">&#x2715;</button>
           </div>
         </div>
