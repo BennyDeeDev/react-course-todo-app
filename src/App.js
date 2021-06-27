@@ -1,15 +1,23 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 function App() {
   const [todos, setTodos] = useState([
-    { title: "test todo", id: 1, done: false },
+    { title: "test todo", id: uuid(), done: false },
   ]);
+
+  const handleDeleteTodo = (id) => {
+    setTodos(todos.filter((t) => t.id !== id));
+  };
 
   const handleAddTodo = (event) => {
     if (event.key === "Enter") {
-      setTodos([...todos, { title: event.target.value, done: false }]);
+      setTodos([
+        ...todos,
+        { id: uuid(), title: event.target.value, done: false },
+      ]);
       event.target.value = "";
     }
   };
@@ -38,10 +46,15 @@ function App() {
         <div className="TodoListContainer">
           <h2>Zu erledigen:</h2>
           {todos.map((t) => (
-            <div className="TodoItemContainer">
+            <div key={t.id} className="TodoItemContainer">
               <input type="checkbox"></input>
               <p className="TodoItemText">{t.title}</p>
-              <button className="TodoItemDeleteButton">&#x2715;</button>
+              <button
+                onClick={() => handleDeleteTodo(t.id)}
+                className="TodoItemDeleteButton"
+              >
+                &#x2715;
+              </button>
             </div>
           ))}
         </div>
