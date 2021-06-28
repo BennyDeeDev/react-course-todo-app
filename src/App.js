@@ -1,96 +1,17 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
-import { v4 as uuid } from "uuid";
-import TodoItem from "./Todo/TodoItem";
-import TodoList from "./Todo/TodoList";
+import Todo from "./Screens/Todo";
+import Navbar from "./Components/Navbar";
 
 function App() {
-  const [todos, setTodos] = useState([
-    { title: "test todo", id: uuid(), done: false },
-  ]);
-
   const [searchQuery, setSearchQuery] = useState("");
-
-  const handleDeleteTodo = (id) => {
-    setTodos(todos.filter((t) => t.id !== id));
-  };
-
-  const handleAddTodo = (event) => {
-    if (event.key === "Enter") {
-      setTodos([
-        ...todos,
-        { id: uuid(), title: event.target.value, done: false },
-      ]);
-      event.target.value = "";
-    }
-  };
-
-  const handleToggleTodo = (id) => {
-    setTodos(
-      todos.map((t) => {
-        if (t.id === id) {
-          return { ...t, done: !t.done };
-        }
-        return t;
-      })
-    );
-  };
-
-  const activeTodos = todos.filter(({ done }) => !done);
-  const filteredTodos = todos.filter((t) =>
-    t.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-  const doneTodos = todos.filter(({ done }) => done);
 
   return (
     <div className="App">
-      <div className="HeaderContainer">
-        <div className="HeaderContent">
-          <img style={{ width: 120 }} src={logo} alt="React-Logo" />
-          <h1>React Todo</h1>
-        </div>
-        <div className="SearchInputContainer">
-          <input
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="InputItem"
-            placeholder="Suche"
-          />
-        </div>
-      </div>
+      <Navbar onSearchQuery={(e) => setSearchQuery(e.target.value)} />
 
       <div className="MainContainer">
-        <div className="TodoInputContainer">
-          <input
-            onKeyDown={handleAddTodo}
-            placeholder="Hier Todo hinzufügen"
-            className="InputItem"
-          />
-        </div>
-
-        {searchQuery ? (
-          <TodoList
-            title="Suchergebnisse:"
-            list={filteredTodos}
-            onDeleteTodo={handleDeleteTodo}
-            onToggleTodo={handleToggleTodo}
-          />
-        ) : (
-          <>
-            <TodoList
-              title="Zu erledigen"
-              list={activeTodos}
-              onDeleteTodo={handleDeleteTodo}
-              onToggleTodo={handleToggleTodo}
-            />
-            <TodoList
-              title="Erledigt"
-              list={doneTodos}
-              onDeleteTodo={handleDeleteTodo}
-              onToggleTodo={handleToggleTodo}
-            />
-          </>
-        )}
+        <Todo searchQuery={searchQuery} />
       </div>
     </div>
   );
