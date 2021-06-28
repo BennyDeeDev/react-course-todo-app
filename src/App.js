@@ -22,6 +22,21 @@ function App() {
     }
   };
 
+  const toggleTodo = (id) => {
+    setTodos(
+      todos.map((t) => {
+        if (t.id === id) {
+          return { ...t, done: !t.done };
+        }
+        return t;
+      })
+    );
+  };
+
+  const activeTodos = todos.filter(({ done }) => !done);
+
+  const doneTodos = todos.filter(({ done }) => done);
+
   return (
     <div className="App">
       <div className="HeaderContainer">
@@ -45,9 +60,13 @@ function App() {
 
         <div className="TodoListContainer">
           <h2>Zu erledigen:</h2>
-          {todos.map((t) => (
+          {activeTodos.map((t) => (
             <div key={t.id} className="TodoItemContainer">
-              <input type="checkbox"></input>
+              <input
+                checked={t.done}
+                onChange={() => toggleTodo(t.id)}
+                type="checkbox"
+              />
               <p className="TodoItemText">{t.title}</p>
               <button
                 onClick={() => handleDeleteTodo(t.id)}
@@ -62,11 +81,22 @@ function App() {
         <div className="TodoListContainer">
           <h2>Erledigt:</h2>
 
-          <div className="TodoItemContainer">
-            <input type="checkbox"></input>
-            <p className="TodoItemText">Todo</p>
-            <button className="TodoItemDeleteButton">&#x2715;</button>
-          </div>
+          {doneTodos.map((t) => (
+            <div key={t.id} className="TodoItemContainer">
+              <input
+                checked={t.done}
+                onChange={() => toggleTodo(t.id)}
+                type="checkbox"
+              />
+              <p className="TodoItemText">{t.title}</p>
+              <button
+                onClick={() => handleDeleteTodo(t.id)}
+                className="TodoItemDeleteButton"
+              >
+                &#x2715;
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>
