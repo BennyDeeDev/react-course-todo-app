@@ -5,29 +5,27 @@ import Navbar from "./Components/Navbar";
 import { Switch, Route } from "react-router-dom";
 import TodoDetails from "./Screens/TodoDetails";
 import { v4 as uuid } from "uuid";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo } from "./slices/todoSlice";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [todos, setTodos] = useState([
-    { title: "test todo", id: uuid(), done: false },
-  ]);
+  const todos = useSelector((state) => state.todo.list);
+  const dispatch = useDispatch();
 
-  const handleDeleteTodo = (id) => {
+  /*   const handleDeleteTodo = (id) => {
     setTodos(todos.filter((t) => t.id !== id));
-  };
+  }; */
 
   const handleAddTodo = (event) => {
     if (event.key === "Enter") {
-      setTodos([
-        ...todos,
-        { id: uuid(), title: event.target.value, done: false },
-      ]);
+      dispatch(addTodo({ id: uuid(), title: event.target.value, done: false }));
       event.target.value = "";
     }
   };
 
-  const handleToggleTodo = (id) => {
+  /* const handleToggleTodo = (id) => {
     setTodos(
       todos.map((t) => {
         if (t.id === id) {
@@ -48,7 +46,7 @@ function App() {
       })
     );
   };
-
+ */
   return (
     <div className="App">
       <Navbar onSearchQuery={(e) => setSearchQuery(e.target.value)} />
@@ -58,14 +56,14 @@ function App() {
           <Route exact path="/">
             <Todo
               todos={todos}
-              onDeleteTodo={handleDeleteTodo}
+              /*  onDeleteTodo={handleDeleteTodo} */
               onAddTodo={handleAddTodo}
-              onToggleTodo={handleToggleTodo}
+              /* onToggleTodo={handleToggleTodo} */
               searchQuery={searchQuery}
             />
           </Route>
           <Route exact path="/todo/:id">
-            <TodoDetails todos={todos} onChangeTodo={handleChangeTodo} />
+            <TodoDetails todos={todos} /* onChangeTodo={handleChangeTodo} */ />
           </Route>
           <Route path="*">
             <h1>404 - not found</h1>
