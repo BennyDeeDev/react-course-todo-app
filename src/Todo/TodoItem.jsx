@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteTodo, toggleTodo } from "./slices/todoSlice";
+import { deleteTodo, toggleTodo } from "../reducers/todoSlice";
 
 const TodoItem = ({ id, done, title }) => {
   const dispatch = useDispatch();

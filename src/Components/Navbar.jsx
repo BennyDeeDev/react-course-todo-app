@@ -1,8 +1,12 @@
 import React from "react";
 import logo from "../logo.svg";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSearchQuery } from "../reducers/todoSlice";
 
-const Navbar = ({ onSearchQuery }) => {
+const Navbar = () => {
+  const dispatch = useDispatch();
+
   return (
     <div className="HeaderContainer">
       <Link to="/">
@@ -13,7 +17,7 @@ const Navbar = ({ onSearchQuery }) => {
       </Link>
       <div className="SearchInputContainer">
         <input
-          onChange={onSearchQuery}
+          onChange={(e) => dispatch(setSearchQuery(e.target.value))}
           className="InputItem"
           placeholder="Suche"
         />

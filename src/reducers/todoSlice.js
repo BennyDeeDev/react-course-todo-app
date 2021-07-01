@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 
 const initialState = {
   list: [{ id: uuid(), title: "test todo", done: false }],
+  searchQuery: "",
 };
 
 export const todoSlice = createSlice({
@@ -34,10 +35,18 @@ export const todoSlice = createSlice({
         title: action.payload.title,
       };
     },
+    setSearchQuery: (state, action) => {
+      state.searchQuery = action.payload;
+    },
   },
 });
 
-export const { addTodo, deleteTodo, toggleTodo, changeTodoTitle } =
-  todoSlice.actions;
+export const {
+  addTodo,
+  deleteTodo,
+  toggleTodo,
+  changeTodoTitle,
+  setSearchQuery,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;

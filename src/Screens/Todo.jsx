@@ -1,12 +1,13 @@
 import React from "react";
 import TodoList from "../Todo/TodoList";
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo } from "./slices/todoSlice";
+import { addTodo } from "../reducers/todoSlice";
 import { v4 as uuid } from "uuid";
 
-const Todo = ({ searchQuery }) => {
+const Todo = () => {
   const todoList = useSelector((state) => state.todo.list);
   const dispatch = useDispatch();
+  const searchQuery = useSelector((state) => state.todo.searchQuery);
 
   const handleAddTodo = (event) => {
     if (event.key === "Enter") {
