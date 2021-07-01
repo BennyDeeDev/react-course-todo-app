@@ -6,7 +6,12 @@ import { Switch, Route } from "react-router-dom";
 import TodoDetails from "./Screens/TodoDetails";
 import { v4 as uuid } from "uuid";
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo } from "./slices/todoSlice";
+import {
+  addTodo,
+  changeTodoTitle,
+  deleteTodo,
+  toggleTodo,
+} from "./slices/todoSlice";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,7 +20,7 @@ function App() {
   const dispatch = useDispatch();
 
   const handleDeleteTodo = (id) => {
-    /*  setTodos(todos.filter((t) => t.id !== id)); */
+    dispatch(deleteTodo(id));
   };
 
   const handleAddTodo = (event) => {
@@ -26,25 +31,11 @@ function App() {
   };
 
   const handleToggleTodo = (id) => {
-    /*  setTodos(
-      todos.map((t) => {
-        if (t.id === id) {
-          return { ...t, done: !t.done };
-        }
-        return t;
-      })
-    ); */
+    dispatch(toggleTodo(id));
   };
 
   const handleChangeTodo = (todo) => {
-    /*  setTodos(
-      todos.map((t) => {
-        if (t.id === todo.id) {
-          return todo;
-        }
-        return t;
-      })
-    ); */
+    dispatch(changeTodoTitle(todo));
   };
 
   return (
