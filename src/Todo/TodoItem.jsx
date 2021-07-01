@@ -1,14 +1,33 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { deleteTodo, toggleTodo } from "./slices/todoSlice";
 
-const TodoItem = ({ id, done, title, onToggleTodo, onDeleteTodo }) => {
+const TodoItem = ({ id, done, title }) => {
+  const dispatch = useDispatch();
+
+  const handleDeleteTodo = (id) => {
+    dispatch(deleteTodo(id));
+  };
+
+  const handleToggleTodo = (id) => {
+    dispatch(toggleTodo(id));
+  };
+
   return (
     <div key={id} className="TodoItemContainer">
-      <input checked={done} onChange={() => onToggleTodo(id)} type="checkbox" />
+      <input
+        checked={done}
+        onChange={() => handleToggleTodo(id)}
+        type="checkbox"
+      />
       <Link to={`/todo/${id}`}>
         <p className="TodoItemText">{title}</p>
       </Link>
-      <button onClick={() => onDeleteTodo(id)} className="TodoItemDeleteButton">
+      <button
+        onClick={() => handleDeleteTodo(id)}
+        className="TodoItemDeleteButton"
+      >
         &#x2715;
       </button>
     </div>
