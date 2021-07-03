@@ -5,48 +5,47 @@ import Navbar from "./Components/Navbar";
 import { Switch, Route } from "react-router-dom";
 import TodoDetails from "./Screens/TodoDetails";
 import { v4 as uuid } from "uuid";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo } from "./Reducer/todoSlice";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [todos, setTodos] = useState([
-    { title: "test todo", id: uuid(), done: false },
-  ]);
+  const todos = useSelector((state) => state.todo.list);
+  const dispatch = useDispatch();
 
   const handleDeleteTodo = (id) => {
-    setTodos(todos.filter((t) => t.id !== id));
+    /* setTodos(todos.filter((t) => t.id !== id)); */
   };
 
   const handleAddTodo = (event) => {
     if (event.key === "Enter") {
-      setTodos([
-        ...todos,
-        { id: uuid(), title: event.target.value, done: false },
-      ]);
+      dispatch(addTodo({ id: uuid(), title: event.target.value, done: false }));
+
       event.target.value = "";
     }
   };
 
   const handleToggleTodo = (id) => {
-    setTodos(
+    /*  setTodos(
       todos.map((t) => {
         if (t.id === id) {
           return { ...t, done: !t.done };
         }
         return t;
       })
-    );
+    ); */
   };
 
   const handleChangeTodo = (todo) => {
-    setTodos(
+    /* setTodos(
       todos.map((t) => {
         if (t.id === todo.id) {
           return todo;
         }
         return t;
       })
-    );
+    ); */
   };
 
   return (
