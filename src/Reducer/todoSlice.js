@@ -14,9 +14,28 @@ export const todoSlice = createSlice({
       state.list.push(action.payload);
       /* return { ...state, list: [...state.list, action.payload] }; */
     },
+    toggleTodo: (state, action) => {
+      const todo = state.list.find((t) => t.id === action.payload);
+      const todoIndex = state.list.indexOf(todo);
+      state.list[todoIndex] = { ...todo, done: !todo.done };
+    },
+    deleteTodo: (state, action) => {
+      const todoIndex = state.list.findIndex((t) => t.id === action.payload);
+      state.list.splice(todoIndex, 1);
+    },
+    changeTodoTitle: (state, action) => {
+      const todo = state.list.find((t) => t.id === action.payload.id);
+      const todoIndex = state.list.indexOf(todo);
+
+      state.list[todoIndex] = {
+        ...todo,
+        title: action.payload.title,
+      };
+    },
   },
 });
 
-export const { addTodo } = todoSlice.actions;
+export const { addTodo, toggleTodo, deleteTodo, changeTodoTitle } =
+  todoSlice.actions;
 
 export default todoSlice.reducer;
