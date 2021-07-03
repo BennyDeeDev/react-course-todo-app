@@ -1,8 +1,7 @@
 import React from "react";
 import TodoList from "../Todo/TodoList";
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo } from "../reducers/todoSlice";
-import { v4 as uuid } from "uuid";
+import { saveTodo } from "../reducers/todoSlice";
 
 const Todo = () => {
   const todoList = useSelector((state) => state.todo.list);
@@ -11,7 +10,7 @@ const Todo = () => {
 
   const handleAddTodo = (event) => {
     if (event.key === "Enter") {
-      dispatch(addTodo({ id: uuid(), title: event.target.value, done: false }));
+      dispatch(saveTodo({ title: event.target.value, done: false }));
       event.target.value = "";
     }
   };

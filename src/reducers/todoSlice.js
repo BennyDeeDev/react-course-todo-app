@@ -1,10 +1,21 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import { v4 as uuid } from "uuid";
 
 const initialState = {
   list: [{ id: uuid(), title: "test todo", done: false }],
   searchQuery: "",
 };
+
+export const saveTodo = createAsyncThunk("todo/saveTodo", async (todo) => {
+  try {
+    const response = await axios.post("http://localhost:3000/todos", todo);
+    addTodo(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export const todoSlice = createSlice({
   name: "todo",
@@ -39,6 +50,7 @@ export const todoSlice = createSlice({
       state.searchQuery = action.payload;
     },
   },
+  extraReducers: {},
 });
 
 export const {
