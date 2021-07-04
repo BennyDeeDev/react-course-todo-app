@@ -3,8 +3,17 @@ import Todo from "./Screens/Todo";
 import Navbar from "./Components/Navbar";
 import { Switch, Route } from "react-router-dom";
 import TodoDetails from "./Screens/TodoDetails";
+import { useEffect } from "react";
+import { getTodoList } from "./Reducer/todoSlice";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTodoList());
+  }, [dispatch]);
+
   return (
     <div className="App">
       <Navbar />
