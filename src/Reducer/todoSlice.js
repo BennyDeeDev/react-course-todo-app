@@ -1,10 +1,23 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import axios from "axios";
 import { v4 as uuid } from "uuid";
 
 const initialState = {
   list: [{ id: uuid(), title: "test todo", done: false }],
   searchQuery: "",
 };
+
+export const postTodo = createAsyncThunk(
+  "todo/postTodo",
+  async (todo, { dispatch }) => {
+    try {
+      const response = await axios.post("http://localhost:3004/todos", todo);
+      dispatch(addTodo(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const todoSlice = createSlice({
   name: "todo",

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import TodoList from "../Todo/TodoList";
 import { v4 as uuid } from "uuid";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../Reducer/todoSlice";
+import { postTodo } from "../Reducer/todoSlice";
 
 const Todo = () => {
   const todoList = useSelector((state) => state.todo.list);
@@ -17,7 +17,7 @@ const Todo = () => {
 
   const handleAddTodo = (event) => {
     if (event.key === "Enter") {
-      dispatch(addTodo({ id: uuid(), title: event.target.value, done: false }));
+      dispatch(postTodo({ title: event.target.value, done: false }));
 
       event.target.value = "";
     }
