@@ -1,21 +1,18 @@
 import "./App.css";
-import { useState } from "react";
 import Todo from "./Screens/Todo";
 import Navbar from "./Components/Navbar";
 import { Switch, Route } from "react-router-dom";
 import TodoDetails from "./Screens/TodoDetails";
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState("");
-
   return (
     <div className="App">
-      <Navbar onSearchQuery={(e) => setSearchQuery(e.target.value)} />
+      <Navbar />
 
       <div className="MainContainer">
         <Switch>
           <Route exact path="/">
-            <Todo searchQuery={searchQuery} />
+            <Todo />
           </Route>
           <Route exact path="/todo/:id">
             <TodoDetails />
