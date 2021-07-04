@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteTodo, toggleTodo } from "../Reducer/todoSlice";
+import { deleteTodo, putTodo } from "../Reducer/todoSlice";
 
 const TodoItem = ({ id, done, title }) => {
   const dispatch = useDispatch();
@@ -9,7 +9,7 @@ const TodoItem = ({ id, done, title }) => {
     <div key={id} className="TodoItemContainer">
       <input
         checked={done}
-        onChange={() => dispatch(toggleTodo(id))}
+        onChange={() => dispatch(putTodo({ id, done: !done, title }))}
         type="checkbox"
       />
       <Link to={`/todo/${id}`}>

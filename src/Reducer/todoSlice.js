@@ -45,6 +45,17 @@ export const deleteTodo = createAsyncThunk(
   }
 );
 
+export const putTodo = createAsyncThunk(
+  "todo/putTodo",
+  async (todo, { dispatch }) => {
+    const { id } = todo;
+    try {
+      const response = await axios.put(`${todoPath}/${id}`, todo);
+      dispatch(changeTodo(response.data));
+    } catch (error) {}
+  }
+);
+
 export const todoSlice = createSlice({
   name: "todo",
   initialState,
@@ -57,23 +68,14 @@ export const todoSlice = createSlice({
     setTodoList: (state, action) => {
       state.list = action.payload;
     },
-    toggleTodo: (state, action) => {
-      const todo = state.list.find((t) => t.id === action.payload);
-      const todoIndex = state.list.indexOf(todo);
-      state.list[todoIndex] = { ...todo, done: !todo.done };
-    },
     removeTodo: (state, action) => {
       const todoIndex = state.list.findIndex((t) => t.id === action.payload);
       state.list.splice(todoIndex, 1);
     },
-    changeTodoTitle: (state, action) => {
-      const todo = state.list.find((t) => t.id === action.payload.id);
-      const todoIndex = state.list.indexOf(todo);
+    changeTodo: (state, action) => {
+      const todoIndex = state.list.findIndex((t) => t.id === action.payload.id);
 
-      state.list[todoIndex] = {
-        ...todo,
-        title: action.payload.title,
-      };
+      state.list[todoIndex] = action.payload;
     },
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
@@ -81,13 +83,7 @@ export const todoSlice = createSlice({
   },
 });
 
-export const {
-  addTodo,
-  toggleTodo,
-  removeTodo,
-  changeTodoTitle,
-  setSearchQuery,
-  setTodoList,
-} = todoSlice.actions;
+export const { addTodo, removeTodo, setSearchQuery, setTodoList, changeTodo } =
+  todoSlice.actions;
 
 export default todoSlice.reducer;
